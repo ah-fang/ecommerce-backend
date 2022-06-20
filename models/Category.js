@@ -16,12 +16,6 @@ Category.init(
     category_name: {
       type: DataTypes.STRING,
       allowNull: false
-    },
-    products: {
-      type: DataTypes.STRING,
-      validate: {
-          isURL: true
-      }
     }
   },
   {

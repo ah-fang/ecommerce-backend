@@ -24,6 +24,9 @@ Product.init(
       type: DataTypes.INTEGER,
       allowNull: false
     },
+    stock: {
+      type: DataTypes.INTEGER
+    },
     category_id: {
       type: DataTypes.INTEGER,
       references: {
