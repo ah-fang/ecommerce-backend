@@ -18,7 +18,13 @@ router.get('/', (req, res) => {
       }
     ]
   })
-  .then(dbReqData => res.json(dbReqData))
+  .then(dbResData => {
+    if(!dbResData) {
+      res.json({ message: "No product found with this id" })
+      return;
+    }
+    res.json(dbResData)
+  })
   .catch(err => {
     console.log(err);
     res.status(500).json(err);
@@ -44,7 +50,13 @@ router.get('/:id', (req, res) => {
       }
     ]
   })
-  .then(dbReqData => res.json(dbReqData))
+  .then(dbResData => {
+    if(!dbResData) {
+      res.json({ message: "No product found with this id" })
+      return;
+    }
+    res.json(dbResData)
+  })
   .catch(err => {
     console.log(err);
     res.status(500).json(err);
@@ -100,7 +112,7 @@ router.put('/:id', (req, res) => {
     .then((product) => {
       // find all associated tags from ProductTag
       if(!product[0]) {
-        res.status(404).json({ message: "No Product with this ID!" });
+        res.status(404).json({ message: "No product with this id" });
         return;
       }
       return ProductTag.findAll({ where: { product_id: req.params.id } });
@@ -136,13 +148,18 @@ router.put('/:id', (req, res) => {
 });
 
 router.delete('/:id', (req, res) => {
-  // delete one product by its `id` value
-  Product.delete({
+  Product.destroy({
     where: {
       id: req.params.id
     }
   })
-  .then(() => res.json({message: 'Successfully deleted'}))
+  .then(dbResData => {
+    if(!dbResData) {
+      res.json({ message: "No product found with this id" })
+      return;
+    }
+    res.json({ message: 'Successfully deleted' })  
+  })
   .catch(err => {
     console.log(err);
     res.status(500).json(err);
