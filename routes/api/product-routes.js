@@ -1,8 +1,6 @@
 const router = require('express').Router();
 const { Product, Category, Tag, ProductTag } = require('../../models');
 
-// The `/api/products` endpoint
-
 router.get('/', (req, res) => {
   Product.findAll({
     include: [
@@ -31,7 +29,6 @@ router.get('/', (req, res) => {
   })
 });
 
-// get one product
 router.get('/:id', (req, res) => {
   Product.findOne({
     where: {
@@ -63,7 +60,6 @@ router.get('/:id', (req, res) => {
   })
 });
 
-// create new product
 router.post('/', (req, res) => {
   /* req.body should look like this...
     {
@@ -100,7 +96,6 @@ router.post('/', (req, res) => {
     });
 });
 
-// update product
 router.put('/:id', (req, res) => {
   // update product data
   Product.update(req.body, {
